@@ -6,7 +6,6 @@ import com.example.diplomnabackend.mapper.ListingMapper.Companion.LISTINGMAPPER
 import com.example.diplomnabackend.repository.BikeRepository
 import com.example.diplomnabackend.service.ListingService
 import org.springframework.stereotype.Service
-import kotlin.reflect.jvm.internal.impl.descriptors.Visibilities.Private
 
 @Service
 class ListingServiceImpl (

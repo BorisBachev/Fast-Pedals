@@ -4,7 +4,6 @@ import com.example.diplomnabackend.dto.UserDTO
 import com.example.diplomnabackend.service.UserService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import java.time.LocalDate
 
 @RestController
 @RequestMapping("/api/user")

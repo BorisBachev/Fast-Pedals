@@ -3,8 +3,6 @@ package com.example.diplomnabackend.service.Impl
 import com.example.diplomnabackend.dto.UserDTO
 import com.example.diplomnabackend.repository.UserRepository
 import com.example.diplomnabackend.mapper.UserMapper.Companion.USERMAPPER
-import com.example.diplomnabackend.mapper.ListingMapper.Companion.LISTINGMAPPER
-import com.example.diplomnabackend.mapper.FavouriteMapper.Companion.FAVOURITEMAPPER
 import com.example.diplomnabackend.service.UserService
 import org.springframework.stereotype.Service
 
@@ -45,14 +43,6 @@ class UserServiceImpl (
             fullName = updatedUserDTO.fullName
             phoneNumber = updatedUserDTO.phoneNumber
             profilePicture = updatedUserDTO.profilePicture
-            //listings = updatedUserDTO.listings.map(LISTINGMAPPER::toEntity)
-            //favourites = updatedUserDTO.favourites.map(FAVOURITEMAPPER::toEntity)
-            /*updatedUserDTO.listings?.let { listings ->
-                this.listings = listings.map(LISTINGMAPPER::toEntity)
-            }
-            updatedUserDTO.favourites?.let { favourites ->
-                this.favourites = favourites.map(FAVOURITEMAPPER::toEntity)
-            }*/
         }
 
         val updatedUser = userRepository.save(existingUser)

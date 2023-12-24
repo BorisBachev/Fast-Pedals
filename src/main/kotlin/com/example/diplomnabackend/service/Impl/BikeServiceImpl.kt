@@ -6,13 +6,11 @@ import com.example.diplomnabackend.service.BikeService
 import org.springframework.stereotype.Service
 
 import com.example.diplomnabackend.mapper.BikeMapper.Companion.BIKEMAPPER
-import com.example.diplomnabackend.repository.ListingRepository
 import com.example.diplomnabackend.repository.BikeRepository
 
 @Service
 class BikeServiceImpl(
     private val bikeRepository: BikeRepository,
-    private val listingRepository: ListingRepository
 ) : BikeService {
 
 
