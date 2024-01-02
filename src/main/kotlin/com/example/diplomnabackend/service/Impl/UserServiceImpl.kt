@@ -37,8 +37,8 @@ class UserServiceImpl (
         val existingUser = userRepository.findById(id).orElseThrow { NoSuchElementException("User not found") }
 
         existingUser.apply {
-            username = updatedUserDTO.username
-            password = updatedUserDTO.password
+            name = updatedUserDTO.name
+            passw = updatedUserDTO.passw
             email = updatedUserDTO.email
             fullName = updatedUserDTO.fullName
             phoneNumber = updatedUserDTO.phoneNumber

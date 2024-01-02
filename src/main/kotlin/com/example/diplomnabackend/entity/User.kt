@@ -22,13 +22,13 @@ class User (
     val id: Long,
 
     @Column(nullable = false, unique = true)
-    var username: String,
+    var name: String,
 
     @Column(nullable = false, unique = true)
     var email: String,
 
     @Column(nullable = false)
-    var password: String,
+    var passw: String,
 
     @Column(nullable = false)
     var fullName: String,
@@ -49,19 +49,25 @@ class User (
 
 ) : UserDetails {
 
+    @Override
     override fun getAuthorities(): Collection<GrantedAuthority> {
         return listOf(GrantedAuthority { role.name })
     }
 
-    override fun getPassword(): String = password
+    @Override
+    override fun getPassword(): String = passw
 
+    @Override
     override fun getUsername(): String = email
 
+    @Override
     override fun isAccountNonExpired(): Boolean = true
 
     override fun isAccountNonLocked(): Boolean = true
 
+    @Override
     override fun isCredentialsNonExpired(): Boolean = true
 
+    @Override
     override fun isEnabled(): Boolean = true
 }

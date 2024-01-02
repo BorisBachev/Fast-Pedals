@@ -1,5 +1,6 @@
 package com.example.diplomnabackend.entity
 
+import com.example.diplomnabackend.entity.enums.BikeBrand
 import com.example.diplomnabackend.entity.enums.BikeType
 import jakarta.persistence.*
 import lombok.Data
@@ -16,7 +17,7 @@ class Bike(
     var type: BikeType,
 
     @Enumerated(EnumType.STRING)
-    var brand: String,
+    var brand: BikeBrand,
 
     var model: String,
     var size: String,

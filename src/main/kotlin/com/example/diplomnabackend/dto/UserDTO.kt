@@ -6,9 +6,9 @@ import lombok.Data
 class UserDTO (
 
     val id: Long,
-    var username: String,
+    var name: String,
     var email: String,
-    var password: String,
+    var passw: String,
     var fullName: String,
     var phoneNumber: String,
     var profilePicture: String?
