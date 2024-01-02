@@ -1,5 +1,6 @@
 package com.example.diplomnabackend.dto
 
+import com.example.diplomnabackend.entity.enums.BikeBrand
 import com.example.diplomnabackend.entity.enums.BikeType
 import lombok.Data
 
@@ -7,7 +8,7 @@ import lombok.Data
 class BikeDTO(
     val id: Long,
     val type: BikeType,
-    val brand: String,
+    val brand: BikeBrand,
     val model: String,
     val size: String,
     val wheelSize: Int,

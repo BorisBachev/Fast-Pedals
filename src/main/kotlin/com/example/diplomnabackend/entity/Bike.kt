@@ -14,7 +14,10 @@ class Bike(
 
     @Enumerated(EnumType.STRING)
     var type: BikeType,
+
+    @Enumerated(EnumType.STRING)
     var brand: String,
+
     var model: String,
     var size: String,
     var wheelSize: Int,
