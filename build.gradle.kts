@@ -7,6 +7,11 @@ plugins {
     kotlin("plugin.spring") version "1.8.22"
     kotlin("plugin.jpa") version "1.8.22"
     kotlin("kapt") version "1.8.22"
+
+}
+
+kapt {
+    keepJavacAnnotationProcessors = true
 }
 
 group = "com.example"

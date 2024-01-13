@@ -2,8 +2,8 @@ package com.example.diplomnabackend.auth
 
 import com.example.diplomnabackend.config.JwtService
 import com.example.diplomnabackend.entity.User
-import com.example.diplomnabackend.entity.enums.Role
 import com.example.diplomnabackend.repository.UserRepository
+import com.example.diplomnabackend.entity.enums.Role
 import lombok.RequiredArgsConstructor
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.crypto.password.PasswordEncoder
@@ -23,12 +23,8 @@ class AuthenticationService (
     fun register(request: RegisterRequest): AuthenticationResponse {
 
         val user = User.builder()
-            .name(request.name)
             .email(request.email)
-            .passw(passwordEncoder.encode(request.password))
-            .fullName(request.fullName)
-            .phoneNumber(request.phoneNumber)
-            .profilePicture(request.profilePicture)
+            .password(passwordEncoder.encode(request.password))
             .role(Role.USER)
             .build()
 
@@ -52,7 +48,7 @@ class AuthenticationService (
         )
         var user = userRepository.findByEmail(request.email)
 
-        var token = jwtService.generateToken(user)
+        var token = jwtService.generateToken(user!!)
 
         return AuthenticationResponse.builder()
             .token(token)
