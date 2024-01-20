@@ -4,13 +4,11 @@ import com.example.diplomnabackend.config.JwtService
 import com.example.diplomnabackend.entity.User
 import com.example.diplomnabackend.repository.UserRepository
 import com.example.diplomnabackend.entity.enums.Role
-import lombok.RequiredArgsConstructor
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 
 @Service
-@RequiredArgsConstructor
 class AuthenticationService (
 
     private val userRepository: UserRepository,

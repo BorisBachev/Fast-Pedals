@@ -1,10 +1,8 @@
 package com.example.diplomnabackend.entity
 
 import jakarta.persistence.*
-import lombok.Data
 
 @Entity
-@Data
 data class Favourite (
 
     @Id

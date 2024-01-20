@@ -1,8 +1,5 @@
 package com.example.diplomnabackend.dto
 
-import lombok.Data
-
-@Data
 data class ListingDTO (
 
     val id: Long,

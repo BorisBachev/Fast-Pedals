@@ -1,15 +1,6 @@
 package com.example.diplomnabackend.auth
 
-import lombok.AllArgsConstructor
-import lombok.Builder
-import lombok.Data
-import lombok.NoArgsConstructor
-
-@Data
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
-class RegisterRequest (
+data class RegisterRequest (
 
     val name: String,
     val email: String,

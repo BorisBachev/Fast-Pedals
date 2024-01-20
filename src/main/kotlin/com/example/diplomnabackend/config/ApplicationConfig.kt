@@ -2,7 +2,6 @@ package com.example.diplomnabackend.config
 
 import com.example.diplomnabackend.entity.User
 import com.example.diplomnabackend.repository.UserRepository
-import lombok.RequiredArgsConstructor
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.authentication.AuthenticationManager
@@ -18,7 +17,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 
 @Configuration
-@RequiredArgsConstructor
 class ApplicationConfig (
 
     private val userRepository: UserRepository

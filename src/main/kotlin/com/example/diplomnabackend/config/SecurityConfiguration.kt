@@ -1,6 +1,5 @@
 package com.example.diplomnabackend.config
 
-import lombok.RequiredArgsConstructor
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.authentication.AuthenticationProvider
@@ -12,7 +11,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
-@RequiredArgsConstructor
 class SecurityConfiguration (
     private val authenticationProvider: AuthenticationProvider,
     private val jwtAuthenticationFilter: JwtAuthenticationFilter

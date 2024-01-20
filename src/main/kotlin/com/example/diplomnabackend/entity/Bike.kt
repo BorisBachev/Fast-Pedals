@@ -3,10 +3,8 @@ package com.example.diplomnabackend.entity
 import com.example.diplomnabackend.entity.enums.BikeBrand
 import com.example.diplomnabackend.entity.enums.BikeType
 import jakarta.persistence.*
-import lombok.Data
 
 @Entity
-@Data
 data class Bike(
 
     @Id

@@ -1,7 +1,6 @@
 package com.example.diplomnabackend.entity
 
 import jakarta.persistence.*
-import lombok.Data
 
 @Entity
 data class Listing (
