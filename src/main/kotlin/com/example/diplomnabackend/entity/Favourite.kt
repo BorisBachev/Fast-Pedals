@@ -3,7 +3,7 @@ package com.example.diplomnabackend.entity
 import jakarta.persistence.*
 
 @Entity
-data class Favourite (
+class Favourite (
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

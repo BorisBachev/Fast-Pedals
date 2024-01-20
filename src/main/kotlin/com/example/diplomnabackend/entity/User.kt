@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails
 import com.example.diplomnabackend.entity.enums.Role
 
 @Entity
-data class User (
+class User (
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

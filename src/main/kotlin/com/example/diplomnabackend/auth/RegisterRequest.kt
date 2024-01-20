@@ -1,6 +1,6 @@
 package com.example.diplomnabackend.auth
 
-data class RegisterRequest (
+class RegisterRequest (
 
     val name: String,
     val email: String,

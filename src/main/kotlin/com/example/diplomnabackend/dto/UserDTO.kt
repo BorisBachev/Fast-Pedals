@@ -1,6 +1,6 @@
 package com.example.diplomnabackend.dto
 
-data class UserDTO (
+class UserDTO (
 
     val id: Long,
     var name: String,

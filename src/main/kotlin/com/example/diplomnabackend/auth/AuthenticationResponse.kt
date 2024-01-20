@@ -1,6 +1,6 @@
 package com.example.diplomnabackend.auth
 
-data class AuthenticationResponse (
+class AuthenticationResponse (
     val jwt: String
 ) {
     companion object {

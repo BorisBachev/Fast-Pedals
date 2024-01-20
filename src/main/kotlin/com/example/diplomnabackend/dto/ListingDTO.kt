@@ -1,6 +1,6 @@
 package com.example.diplomnabackend.dto
 
-data class ListingDTO (
+class ListingDTO (
 
     val id: Long,
     val title: String,

@@ -13,11 +13,11 @@ interface ListingMapper {
         val LISTINGMAPPER: ListingMapper = Mappers.getMapper(ListingMapper::class.java)
     }
 
-    @Mapping(source = "bike.id", target = "bikeId")
+
     @Mapping(source = "user.id", target = "userId")
+    @Mapping(source = "bike.id", target = "bikeId")
     fun toDto(entity: Listing): ListingDTO
-    @Mapping(ignore = true, target = "bike.id")
-    @Mapping(ignore = true, target = "user.id")
+
     fun toEntity(dto: ListingDTO): Listing
 
 }

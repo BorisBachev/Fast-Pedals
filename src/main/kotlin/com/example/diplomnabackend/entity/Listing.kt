@@ -3,23 +3,23 @@ package com.example.diplomnabackend.entity
 import jakarta.persistence.*
 
 @Entity
-data class Listing (
+class Listing (
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private val id: Long,
 
     @ManyToOne
-    private val user: User,
+    private var user: User?,
 
     @OneToOne
-    private var bike: Bike,
+    private var bike: Bike?,
 
     private var title: String,
     private var description: String,
     private var price: Double,
     private var location: String,
-    private var date: String,
+    private var date: String? = null,
 
     @ElementCollection
     private var images: List<String> = mutableListOf()
@@ -46,12 +46,20 @@ data class Listing (
         return id
     }
 
-    public fun getUser(): User {
+    public fun getUser(): User? {
         return user
     }
 
-    public fun getBike(): Bike {
+    public fun setUser(user: User?) {
+        this.user = user
+    }
+
+    public fun getBike(): Bike? {
         return bike
+    }
+
+    public fun setBike(bike: Bike?) {
+        this.bike = bike
     }
 
     public fun getTitle(): String {
@@ -86,16 +94,12 @@ data class Listing (
         this.location = location
     }
 
-    public fun getDate(): String {
+    public fun getDate(): String? {
         return date
     }
 
-    public fun setDate(date: String) {
+    public fun setDate(date: String?) {
         this.date = date
-    }
-
-    public fun setBike(bike: Bike) {
-        this.bike = bike
     }
 
 }

@@ -5,14 +5,14 @@ import com.example.diplomnabackend.entity.enums.BikeType
 import jakarta.persistence.*
 
 @Entity
-data class Bike(
+class Bike(
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private val id: Long,
+    private val id: Long = 0,
 
     @Enumerated(EnumType.STRING)
-    private var type: BikeType,
+    private var type: BikeType = BikeType.MOUNTAIN,
 
     @Enumerated(EnumType.STRING)
     private var brand: BikeBrand,
