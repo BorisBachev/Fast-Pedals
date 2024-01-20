@@ -39,10 +39,10 @@ class ApplicationConfig (
 
     private fun User.toUserDetails(): UserDetails {
 
-        val authorities: List<GrantedAuthority> = listOf(SimpleGrantedAuthority("ROLE_${role.name}"))
+        val authorities: List<GrantedAuthority> = listOf(SimpleGrantedAuthority("ROLE_${getRole().name}"))
 
         return org.springframework.security.core.userdetails.User(
-            email, // Assuming email is the username
+            getEmail(),
             password,
             authorities
         )

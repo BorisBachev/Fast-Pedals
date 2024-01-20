@@ -3,7 +3,7 @@ package com.example.diplomnabackend.dto
 import lombok.Data
 
 @Data
-class UserDTO (
+data class UserDTO (
 
     val id: Long,
     var name: String,

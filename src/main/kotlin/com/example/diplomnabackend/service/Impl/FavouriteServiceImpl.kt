@@ -29,8 +29,8 @@ class FavouriteServiceImpl (
     override fun save(favouriteDTO: FavouriteDTO): FavouriteDTO {
 
         val favouriteEntity = FAVOURITEMAPPER.toEntity(favouriteDTO)
-        favouriteEntity.user = userRepository.findById(favouriteDTO.userId).orElseThrow { NoSuchElementException("User not found") }
-        favouriteEntity.listing = listingRepository.findById(favouriteDTO.listingId).orElseThrow { NoSuchElementException("Listing not found") }
+        favouriteEntity.setUser(userRepository.findById(favouriteDTO.userId).orElseThrow { NoSuchElementException("User not found") })
+        favouriteEntity.setListing(listingRepository.findById(favouriteDTO.listingId).orElseThrow { NoSuchElementException("Listing not found") })
         val savedFavourite = favouriteRepository.save(favouriteEntity)
         return FAVOURITEMAPPER.toDto(savedFavourite)
 

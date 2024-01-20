@@ -26,7 +26,7 @@ class ListingServiceImpl (
 
         val listingEntity = LISTINGMAPPER.toEntity(listingDTO)
         println(listingDTO.bikeId)
-        bikeRepository.findById(listingDTO.bikeId).ifPresent { listingEntity.bike = it }
+        bikeRepository.findById(listingDTO.bikeId).ifPresent { listingEntity.setBike(it) }
         val savedListing = listingRepository.save(listingEntity)
         return LISTINGMAPPER.toDto(savedListing)
 
@@ -37,11 +37,11 @@ class ListingServiceImpl (
         val existingListing = listingRepository.findById(id).orElseThrow { NoSuchElementException("Listing not found") }
 
         existingListing.apply {
-            title = updatedListingDTO.title
-            description = updatedListingDTO.description
-            price = updatedListingDTO.price
-            location = updatedListingDTO.location
-            images = updatedListingDTO.images
+            setTitle(updatedListingDTO.title)
+            setDescription(updatedListingDTO.description)
+            setPrice(updatedListingDTO.price)
+            setLocation(updatedListingDTO.location)
+            setImages(updatedListingDTO.images)
         }
 
         val updatedListing = listingRepository.save(existingListing)

@@ -5,7 +5,7 @@ import com.example.diplomnabackend.entity.enums.BikeType
 import lombok.Data
 
 @Data
-class BikeDTO(
+data class BikeDTO(
     val id: Long,
     val type: BikeType,
     val brand: BikeBrand,

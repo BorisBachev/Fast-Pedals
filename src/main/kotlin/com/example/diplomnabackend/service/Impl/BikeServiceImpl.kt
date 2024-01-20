@@ -34,12 +34,12 @@ class BikeServiceImpl(
         val existingBike: Bike = bikeRepository.findById(id).orElseThrow { NoSuchElementException("Bike not found") }
 
         existingBike.apply {
-            type = updatedBikeDTO.type
-            brand = updatedBikeDTO.brand
-            model = updatedBikeDTO.model
-            size = updatedBikeDTO.size
-            wheelSize = updatedBikeDTO.wheelSize
-            frameMaterial = updatedBikeDTO.frameMaterial
+            setType(updatedBikeDTO.type)
+            setBrand(updatedBikeDTO.brand)
+            setModel(updatedBikeDTO.model)
+            setSize(updatedBikeDTO.size)
+            setWheelSize(updatedBikeDTO.wheelSize)
+            setFrameMaterial(updatedBikeDTO.frameMaterial)
         }
 
         val updatedBike: Bike = bikeRepository.save(existingBike)

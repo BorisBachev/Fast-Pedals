@@ -22,19 +22,13 @@ class AuthenticationService (
 
     fun register(request: RegisterRequest): AuthenticationResponse {
 
-        val user = User.builder()
-            .email(request.email)
-            .password(passwordEncoder.encode(request.password))
-            .role(Role.USER)
-            .build()
+        val user = User.build(request.email, passwordEncoder.encode(request.password), Role.USER)
 
         userRepository.save(user)
 
         var token = jwtService.generateToken(user)
 
-        return AuthenticationResponse.builder()
-            .token(token)
-            .build()
+        return AuthenticationResponse.build(token)
 
     }
 
@@ -50,9 +44,7 @@ class AuthenticationService (
 
         var token = jwtService.generateToken(user!!)
 
-        return AuthenticationResponse.builder()
-            .token(token)
-            .build()
+        return AuthenticationResponse.build(token)
 
     }
 

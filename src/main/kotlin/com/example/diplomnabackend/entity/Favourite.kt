@@ -5,16 +5,37 @@ import lombok.Data
 
 @Entity
 @Data
-class Favourite (
+data class Favourite (
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long,
+    private val id: Long,
 
     @ManyToOne
-    var user: User,
+    private var user: User,
 
     @ManyToOne
-    var listing: Listing
+    private var listing: Listing
 
-)
+) {
+
+    public fun getId(): Long {
+        return id
+    }
+
+    public fun getUser(): User {
+        return user
+    }
+
+    public fun setUser(user: User) {
+        this.user = user
+    }
+
+    public fun getListing(): Listing {
+        return listing
+    }
+
+    public fun setListing(listing: Listing) {
+        this.listing = listing
+    }
+}

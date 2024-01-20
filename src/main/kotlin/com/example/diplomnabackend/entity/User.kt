@@ -1,51 +1,43 @@
 package com.example.diplomnabackend.entity
 
 import jakarta.persistence.*
-import lombok.AllArgsConstructor
-import lombok.Builder
-import lombok.Data
-import lombok.NoArgsConstructor
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 
 import com.example.diplomnabackend.entity.enums.Role
 
 @Entity
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-class User (
+data class User (
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long,
+    private val id: Long = 0,
 
     @Column(nullable = false, unique = true)
-    var name: String,
+    private var name: String,
 
     @Column(nullable = false, unique = true)
-    var email: String,
+    private var email: String,
 
     @Column(nullable = false)
-    var passw: String,
+    private var passw: String,
 
     @Column(nullable = false)
-    var fullName: String,
+    private var fullName: String,
 
     @Column(nullable = false)
-    var phoneNumber: String,
+    private var phoneNumber: String,
 
-    var profilePicture: String?,
+    private var profilePicture: String?,
 
     @Enumerated(EnumType.STRING)
-    var role: Role,
+    private var role: Role,
 
     @OneToMany
-    var listings: List<Listing>? = mutableListOf(),
+    private var listings: List<Listing>? = mutableListOf(),
 
     @OneToMany
-    var favourites: List<Favourite> = mutableListOf()
+    private var favourites: List<Favourite> = mutableListOf()
 
 ) : UserDetails {
 
@@ -70,4 +62,57 @@ class User (
 
     @Override
     override fun isEnabled(): Boolean = true
+
+    fun getRole(): Role = role
+    fun setRole(role: Role) {
+        this.role = role
+    }
+    fun getProfilePicture(): String? = profilePicture
+    fun setProfilePicture(profilePicture: String?) {
+        this.profilePicture = profilePicture
+    }
+    fun getPhoneNumber(): String = phoneNumber
+    fun setPhoneNumber(phoneNumber: String) {
+        this.phoneNumber = phoneNumber
+    }
+    fun getFullName(): String = fullName
+    fun setFullName(fullName: String) {
+        this.fullName = fullName
+    }
+    fun getEmail(): String = email
+    fun setEmail(email: String) {
+        this.email = email
+    }
+    fun getName(): String = name
+    fun setName(name: String) {
+        this.name = name
+    }
+    fun getId(): Long = id
+    fun getPassw(): String = passw
+    fun setPassw(passw: String) {
+        this.passw = passw
+    }
+
+    companion object {
+        fun build(email: String, password: String, role: Role): User {
+            var user: User = noArgConstructor()
+            user.setEmail(email)
+            user.setPassw(password)
+            user.setRole(role)
+            return user
+        }
+
+        private fun noArgConstructor(): User {
+            return User(
+                name = "",
+                email = "",
+                passw = "",
+                fullName = "",
+                phoneNumber = "",
+                profilePicture = "",
+                role = Role.USER
+            )
+        }
+    }
+
 }
