@@ -16,8 +16,7 @@ interface FavouriteMapper {
     @Mapping(source = "user.id", target = "userId")
     @Mapping(source = "listing.id", target = "listingId")
     fun toDto(entity: Favourite): FavouriteDTO
-    @Mapping(ignore = true, target = "user.id")
-    @Mapping(ignore = true, target = "listing.id")
+
     fun toEntity(dto: FavouriteDTO): Favourite
 
 }
