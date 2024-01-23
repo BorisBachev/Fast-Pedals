@@ -1,2 +1,2 @@
-# PedalSphere
+# Fast-Pedals
 Kotlin bikeshop app
