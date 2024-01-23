@@ -101,6 +101,17 @@ class User (
             user.setRole(role)
             return user
         }
+        fun build(email: String, password: String, role: Role, name: String, fullName: String, phoneNumber: String, profilePicture: String?): User {
+            var user: User = noArgConstructor()
+            user.setEmail(email)
+            user.setPassw(password)
+            user.setRole(role)
+            user.setName(name)
+            user.setFullName(fullName)
+            user.setPhoneNumber(phoneNumber)
+            user.setProfilePicture(profilePicture)
+            return user
+        }
 
         private fun noArgConstructor(): User {
             return User(

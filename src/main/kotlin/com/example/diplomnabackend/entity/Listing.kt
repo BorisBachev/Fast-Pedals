@@ -26,79 +26,79 @@ class Listing (
 
 ) {
 
-    public fun addImage(image: String) {
+    fun addImage(image: String) {
         images += image
     }
 
-    public fun removeImage(image: String) {
+    fun removeImage(image: String) {
         images -= image
     }
 
-    public fun getImages(): List<String> {
+    fun getImages(): List<String> {
         return images
     }
 
-    public fun setImages(images: List<String>) {
+    fun setImages(images: List<String>) {
         this.images = images
     }
 
-    public fun getId(): Long {
+    fun getId(): Long {
         return id
     }
 
-    public fun getUser(): User? {
+    fun getUser(): User? {
         return user
     }
 
-    public fun setUser(user: User?) {
+    fun setUser(user: User?) {
         this.user = user
     }
 
-    public fun getBike(): Bike? {
+    fun getBike(): Bike? {
         return bike
     }
 
-    public fun setBike(bike: Bike?) {
+    fun setBike(bike: Bike?) {
         this.bike = bike
     }
 
-    public fun getTitle(): String {
+    fun getTitle(): String {
         return title
     }
 
-    public fun setTitle(title: String) {
+    fun setTitle(title: String) {
         this.title = title
     }
 
-    public fun getDescription(): String {
+    fun getDescription(): String {
         return description
     }
 
-    public fun setDescription(description: String) {
+    fun setDescription(description: String) {
         this.description = description
     }
 
-    public fun getPrice(): Double {
+    fun getPrice(): Double {
         return price
     }
 
-    public fun setPrice(price: Double) {
+    fun setPrice(price: Double) {
         this.price = price
     }
 
-    public fun getLocation(): String {
+    fun getLocation(): String {
         return location
     }
 
-    public fun setLocation(location: String) {
+    fun setLocation(location: String) {
         this.location = location
     }
 
-    public fun getDate(): String? {
+    fun getDate(): String? {
         return date
     }
 
-    public fun setDate(date: String?) {
+    fun setDate(date: String?) {
         this.date = date
     }
 

@@ -20,7 +20,7 @@ class AuthenticationService (
 
     fun register(request: RegisterRequest): AuthenticationResponse {
 
-        val user = User.build(request.email, passwordEncoder.encode(request.password), Role.USER)
+        val user = User.build(request.email, passwordEncoder.encode(request.password), Role.USER, request.name, request.fullName, request.phoneNumber, request.profilePicture)
 
         userRepository.save(user)
 

@@ -24,55 +24,55 @@ class Bike(
 
 ) {
 
-    public fun getId(): Long {
+    fun getId(): Long {
         return id
     }
 
-    public fun getType(): BikeType {
+    fun getType(): BikeType {
         return type
     }
 
-    public fun setType(type: BikeType) {
+    fun setType(type: BikeType) {
         this.type = type
     }
 
-    public fun getBrand(): BikeBrand {
+    fun getBrand(): BikeBrand {
         return brand
     }
 
-    public fun setBrand(brand: BikeBrand) {
+    fun setBrand(brand: BikeBrand) {
         this.brand = brand
     }
 
-    public fun getModel(): String {
+    fun getModel(): String {
         return model
     }
 
-    public fun setModel(model: String) {
+    fun setModel(model: String) {
         this.model = model
     }
 
-    public fun getSize(): String {
+    fun getSize(): String {
         return size
     }
 
-    public fun setSize(size: String) {
+    fun setSize(size: String) {
         this.size = size
     }
 
-    public fun getWheelSize(): Int {
+    fun getWheelSize(): Int {
         return wheelSize
     }
 
-    public fun setWheelSize(wheelSize: Int) {
+    fun setWheelSize(wheelSize: Int) {
         this.wheelSize = wheelSize
     }
 
-    public fun getFrameMaterial(): String {
+    fun getFrameMaterial(): String {
         return frameMaterial
     }
 
-    public fun setFrameMaterial(frameMaterial: String) {
+    fun setFrameMaterial(frameMaterial: String) {
         this.frameMaterial = frameMaterial
     }
 

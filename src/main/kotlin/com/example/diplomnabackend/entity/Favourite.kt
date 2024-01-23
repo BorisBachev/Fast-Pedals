@@ -10,30 +10,30 @@ class Favourite (
     private val id: Long,
 
     @ManyToOne
-    private var user: User,
+    private var user: User?,
 
     @ManyToOne
-    private var listing: Listing
+    private var listing: Listing?
 
 ) {
 
-    public fun getId(): Long {
+    fun getId(): Long {
         return id
     }
 
-    public fun getUser(): User {
+    fun getUser(): User? {
         return user
     }
 
-    public fun setUser(user: User) {
+    fun setUser(user: User?) {
         this.user = user
     }
 
-    public fun getListing(): Listing {
+    fun getListing(): Listing? {
         return listing
     }
 
-    public fun setListing(listing: Listing) {
+    fun setListing(listing: Listing?) {
         this.listing = listing
     }
 }
