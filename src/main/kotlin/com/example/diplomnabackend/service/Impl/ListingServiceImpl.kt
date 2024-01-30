@@ -1,7 +1,6 @@
 package com.example.diplomnabackend.service.Impl
 
 import com.example.diplomnabackend.dto.ListingDTO
-import com.example.diplomnabackend.entity.User
 import com.example.diplomnabackend.mapper.ListingMapper.Companion.LISTINGMAPPER
 import com.example.diplomnabackend.repository.BikeRepository
 import com.example.diplomnabackend.repository.ListingRepository
@@ -59,6 +58,26 @@ class ListingServiceImpl (
 
         listingRepository.deleteById(id)
 
+    }
+
+    override fun searchListings(
+        title: String?,
+        minPrice: Double?,
+        maxPrice: Double?,
+        location: String?,
+        description: String?,
+        type: String?,
+        brand: String?,
+        model: String?,
+        size: String?,
+        wheelSize: Int?,
+        frameMaterial: String?
+    ): List<ListingDTO?>? {
+        val listings =listingRepository.searchListings(
+            title, minPrice, maxPrice, location, description, type, brand, model, size, wheelSize, frameMaterial
+        )?: throw NoSuchElementException("Listing not found")
+
+        return listings.map { LISTINGMAPPER.toDto(it!!) }
     }
 
 }

@@ -5,6 +5,7 @@ import com.example.diplomnabackend.service.ListingService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
+
 @RestController
 @RequestMapping("/api/listing")
 class ListingController (
@@ -35,6 +36,26 @@ class ListingController (
     fun deleteListing(@PathVariable id: Long) : ResponseEntity<Any> {
         listingService.deleteById(id)
         return ResponseEntity.ok("Listing with id: $id deleted successfully")
+    }
+
+    @GetMapping("/search")
+    fun searchListings(
+        @RequestParam(required = false) title: String?,
+        @RequestParam(required = false) minPrice: Double?,
+        @RequestParam(required = false) maxPrice: Double?,
+        @RequestParam(required = false) location: String?,
+        @RequestParam(required = false) description: String?,
+        @RequestParam(required = false) type: String?,
+        @RequestParam(required = false) brand: String?,
+        @RequestParam(required = false) model: String?,
+        @RequestParam(required = false) size: String?,
+        @RequestParam(required = false) wheelSize: Int?,
+        @RequestParam(required = false) frameMaterial: String?
+    ): ResponseEntity<List<ListingDTO?>?> {
+        val result = listingService.searchListings(
+            title, minPrice, maxPrice, location, description, type, brand, model, size, wheelSize, frameMaterial
+        )
+        return ResponseEntity.ok(result)
     }
 
 }
