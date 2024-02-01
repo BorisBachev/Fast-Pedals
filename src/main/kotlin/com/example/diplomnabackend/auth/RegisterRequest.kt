@@ -9,6 +9,4 @@ class RegisterRequest (
     val phoneNumber: String,
     val profilePicture: String?
 
-) {
-
-}
+)

@@ -17,12 +17,14 @@ class ListingServiceImpl (
     private val userRepository: UserRepository
 ) : ListingService {
 
+    val err = NoSuchElementException("Listing not found")
+
     override fun findAll(): List<ListingDTO> {
         return listingRepository.findAll().map { LISTINGMAPPER.toDto(it) }
     }
 
     override fun findById(id: Long): ListingDTO {
-        val listing = listingRepository.findById(id).orElseThrow { NoSuchElementException("Listing not found") }
+        val listing = listingRepository.findById(id).orElseThrow { err }
         return LISTINGMAPPER.toDto(listing)
     }
 
@@ -39,7 +41,7 @@ class ListingServiceImpl (
 
     override fun update(id: Long, updatedListingDTO: ListingDTO): ListingDTO {
 
-        val existingListing = listingRepository.findById(id).orElseThrow { NoSuchElementException("Listing not found") }
+        val existingListing = listingRepository.findById(id).orElseThrow { err }
 
         existingListing.apply {
             setTitle(updatedListingDTO.title)
@@ -75,7 +77,7 @@ class ListingServiceImpl (
     ): List<ListingDTO?>? {
         val listings =listingRepository.searchListings(
             title, minPrice, maxPrice, location, description, type, brand, model, size, wheelSize, frameMaterial
-        )?: throw NoSuchElementException("Listing not found")
+        )?: throw err
 
         return listings.map { LISTINGMAPPER.toDto(it!!) }
     }

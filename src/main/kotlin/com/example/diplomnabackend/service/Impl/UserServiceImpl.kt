@@ -11,6 +11,8 @@ class UserServiceImpl (
     private val userRepository: UserRepository
 ) : UserService {
 
+    val err = NoSuchElementException("User not found")
+
     override fun findAll(): List<UserDTO> {
 
         return userRepository.findAll().map { USERMAPPER.toDto(it) }
@@ -19,7 +21,7 @@ class UserServiceImpl (
 
     override fun findById(id: Long): UserDTO {
 
-        val user = userRepository.findById(id).orElseThrow { NoSuchElementException("User not found") }
+        val user = userRepository.findById(id).orElseThrow { err }
         return USERMAPPER.toDto(user)
 
     }
@@ -34,7 +36,7 @@ class UserServiceImpl (
 
     override fun update(id: Long, updatedUserDTO: UserDTO): UserDTO {
 
-        val existingUser = userRepository.findById(id).orElseThrow { NoSuchElementException("User not found") }
+        val existingUser = userRepository.findById(id).orElseThrow { err }
 
         existingUser.apply {
             setName(updatedUserDTO.name)

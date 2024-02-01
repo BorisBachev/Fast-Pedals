@@ -22,15 +22,14 @@ class JwtService (
     fun <T> extractClaim(jwt: String, claimsResolver: (Claims) -> T): T {
         val claims = extractAllClaims(jwt)
         return claimsResolver(claims)
-        //moje da ima problemi ne go napisa taka picha minuta 1:03:00
     }
 
     fun generateToken(extraClaims: Map<String, Any>, userDetails: UserDetails): String {
         return Jwts.builder()
             .setClaims(extraClaims)
             .setSubject(userDetails.username)
-            .setIssuedAt(java.util.Date(System.currentTimeMillis()))
-            .setExpiration(java.util.Date(System.currentTimeMillis() + 1000 * 60 * 48))
+            .setIssuedAt(Date(System.currentTimeMillis()))
+            .setExpiration(Date(System.currentTimeMillis() + 1000 * 60 * 48))
             .signWith(getSignInKey(), io.jsonwebtoken.SignatureAlgorithm.HS256)
             .compact()
     }
@@ -41,7 +40,7 @@ class JwtService (
     }
 
     fun isTokenExpired(token: String): Boolean {
-        return extractExpiration(token).before(java.util.Date())
+        return extractExpiration(token).before(Date())
     }
 
     private fun extractExpiration(token: String): Date {

@@ -25,13 +25,11 @@ class ApplicationConfig (
 
     @Bean
     fun userDetailsService(): UserDetailsService {
-        return object : UserDetailsService {
-            override fun loadUserByUsername(username: String): UserDetails {
-                val user = userRepository.findByEmail(username)
-                    ?: throw UsernameNotFoundException("User not found")
+        return UserDetailsService { username ->
+            val user = userRepository.findByEmail(username)
+                ?: throw UsernameNotFoundException("User not found")
 
-                return user.toUserDetails()
-            }
+            user.toUserDetails()
         }
     }
 

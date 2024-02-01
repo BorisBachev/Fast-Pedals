@@ -24,7 +24,7 @@ class AuthenticationService (
 
         userRepository.save(user)
 
-        var token = jwtService.generateToken(user)
+        val token = jwtService.generateToken(user)
 
         return AuthenticationResponse.build(token)
 
@@ -38,9 +38,9 @@ class AuthenticationService (
                 request.password
             )
         )
-        var user = userRepository.findByEmail(request.email)
+        val user = userRepository.findByEmail(request.email)
 
-        var token = jwtService.generateToken(user!!)
+        val token = jwtService.generateToken(user!!)
 
         return AuthenticationResponse.build(token)
 

@@ -13,6 +13,8 @@ class AuthenticationController (
 
 ) {
 
+    //ToDO: Add a check if authenticated to be able to reset token and skip welcome screen if logged in
+
     @PostMapping("/register")
     fun register(@RequestBody request: RegisterRequest) :ResponseEntity<AuthenticationResponse> {
 
