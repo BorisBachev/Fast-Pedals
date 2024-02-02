@@ -75,6 +75,7 @@ class ListingServiceImpl (
         wheelSize: Int?,
         frameMaterial: String?
     ): List<ListingDTO?>? {
+
         val listings =listingRepository.searchListings(
             title, minPrice, maxPrice, location, description, type, brand, model, size, wheelSize, frameMaterial
         )?: throw err

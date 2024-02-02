@@ -32,6 +32,7 @@ class FavouriteServiceImpl (
         favouriteEntity.setUser(userRepository.findById(favouriteDTO.userId).orElseThrow { NoSuchElementException("User not found") })
         favouriteEntity.setListing(listingRepository.findById(favouriteDTO.listingId).orElseThrow { NoSuchElementException("Listing not found") })
         val savedFavourite = favouriteRepository.save(favouriteEntity)
+
         return FAVOURITEMAPPER.toDto(savedFavourite)
 
     }
