@@ -18,8 +18,8 @@ interface ListingRepository : JpaRepository<Listing, Long> {
         "AND (:maxPrice IS NULL OR l.price <= :maxPrice) " +
         "AND (:location IS NULL OR LOWER(l.location) LIKE %:location%) " +
         "AND (:description IS NULL OR LOWER(l.description) LIKE %:description%) " +
-        "AND (:type IS NULL OR LOWER(b.type) = LOWER(:type)) " +
-        "AND (:brand IS NULL OR LOWER(b.brand) = LOWER(:brand)) " +
+        "AND (:type IS NULL OR LOWER(b.type) = LOWER(:type) OR :type = '') " +
+        "AND (:brand IS NULL OR LOWER(b.brand) = LOWER(:brand) OR :brand = '') " +
         "AND (:model IS NULL OR LOWER(b.model) LIKE %:model%) " +
         "AND (:size IS NULL OR LOWER(b.size) LIKE %:size%) " +
         "AND (:wheelSize IS NULL OR b.wheelSize = :wheelSize) " +
@@ -38,5 +38,4 @@ interface ListingRepository : JpaRepository<Listing, Long> {
         @Param("wheelSize") wheelSize: Int?,
         @Param("frameMaterial") frameMaterial: String?
     ): List<Listing?>?
-
 }

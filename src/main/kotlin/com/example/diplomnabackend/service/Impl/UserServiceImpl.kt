@@ -1,5 +1,6 @@
 package com.example.diplomnabackend.service.Impl
 
+import com.example.diplomnabackend.dto.ContactsDTO
 import com.example.diplomnabackend.dto.UserDTO
 import com.example.diplomnabackend.repository.UserRepository
 import com.example.diplomnabackend.mapper.UserMapper.Companion.USERMAPPER
@@ -12,6 +13,13 @@ class UserServiceImpl (
 ) : UserService {
 
     val err = NoSuchElementException("User not found")
+
+    override fun getUserContacts(id: Long): ContactsDTO {
+
+        val user = userRepository.findById(id).orElseThrow { err }
+        return USERMAPPER.toContactsDto(user)
+
+    }
 
     override fun findAll(): List<UserDTO> {
 

@@ -1,6 +1,7 @@
 package com.example.diplomnabackend.controller
 
 import com.example.diplomnabackend.dto.FavouriteDTO
+import com.example.diplomnabackend.dto.FavouriteNameDTO
 import com.example.diplomnabackend.service.FavouriteService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
@@ -31,10 +32,26 @@ class FavouriteController (
         return ResponseEntity.ok(favouriteService.save(favouriteDTO))
     }
 
+    @PostMapping("/name")
+    fun saveFavouriteByName(@RequestBody favouriteDTO: FavouriteNameDTO) : ResponseEntity<Any> {
+        return ResponseEntity.ok(favouriteService.saveByName(favouriteDTO))
+    }
+
+    @PostMapping("/check")
+    fun checkFavourite(@RequestBody favouriteDTO: FavouriteNameDTO) : ResponseEntity<Any> {
+        return ResponseEntity.ok(favouriteService.check(favouriteDTO))
+    }
+
     @PostMapping("/{id}")
     fun deleteFavourite(@PathVariable id: Long) : ResponseEntity<Any> {
         favouriteService.deleteById(id)
         return ResponseEntity.ok("Favourite with id: $id deleted successfully")
+    }
+
+    @PostMapping("/delete")
+    fun deleteFavouriteByUserIdAndListingId(@RequestBody favouriteDTO: FavouriteNameDTO) : ResponseEntity<Any> {
+        favouriteService.deleteByName(favouriteDTO.userEmail, favouriteDTO.listingId)
+        return ResponseEntity.ok("Favourite for user: ${favouriteDTO.userEmail} with listingId: ${favouriteDTO.listingId} deleted successfully")
     }
 
 

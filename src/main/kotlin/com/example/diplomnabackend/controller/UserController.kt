@@ -11,6 +11,11 @@ class UserController (
     private val userService: UserService
 ) {
 
+    @GetMapping("/contacts/{id}")
+    fun getUserContacts(@PathVariable id: Long) : ResponseEntity<Any> {
+        return ResponseEntity.ok(userService.getUserContacts(id))
+    }
+
     @GetMapping
     fun getAllUsers() : ResponseEntity<Any> {
         return ResponseEntity.ok(userService.findAll())

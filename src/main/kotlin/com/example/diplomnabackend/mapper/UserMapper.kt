@@ -1,5 +1,6 @@
 package com.example.diplomnabackend.mapper
 
+import com.example.diplomnabackend.dto.ContactsDTO
 import com.example.diplomnabackend.dto.UserDTO
 import com.example.diplomnabackend.entity.User
 import org.mapstruct.Mapper
@@ -15,5 +16,7 @@ interface UserMapper {
     fun toDto(entity: User): UserDTO
 
     fun toEntity(dto: UserDTO): User
+
+    fun toContactsDto(entity: User): ContactsDTO
 
 }
