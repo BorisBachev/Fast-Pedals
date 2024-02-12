@@ -1,8 +1,8 @@
 package com.example.diplomnabackend.dto
 
-class FavouriteNameDTO(
+data class FavouriteSaveDTO(
 
-    val userEmail: String,
+    val userId: Long,
     val listingId: Long
 
 )

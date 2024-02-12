@@ -1,7 +1,6 @@
 package com.example.diplomnabackend.service
 
 import com.example.diplomnabackend.dto.FavouriteDTO
-import com.example.diplomnabackend.dto.FavouriteNameDTO
 
 interface FavouriteService {
 
@@ -9,12 +8,12 @@ interface FavouriteService {
     fun findById(id: Long): FavouriteDTO
     fun save(favouriteDTO: FavouriteDTO): FavouriteDTO
 
-    fun saveByName(favouriteDTO: FavouriteNameDTO): FavouriteDTO
+    fun saveByName(listingId: Long): FavouriteDTO
 
-    fun check(favouriteDTO: FavouriteNameDTO): Boolean
+    fun check(listingId: Long): Boolean
 
     fun deleteById(id: Long)
 
-    fun deleteByName(userEmail: String, listingId: Long)
+    fun deleteByName(listingId: Long)
 
 }

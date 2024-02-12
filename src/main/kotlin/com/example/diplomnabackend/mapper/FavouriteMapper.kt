@@ -1,7 +1,7 @@
 package com.example.diplomnabackend.mapper
 
 import com.example.diplomnabackend.dto.FavouriteDTO
-import com.example.diplomnabackend.dto.FavouriteNameDTO
+import com.example.diplomnabackend.dto.FavouriteSaveDTO
 import com.example.diplomnabackend.entity.Favourite
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
@@ -20,6 +20,6 @@ interface FavouriteMapper {
 
     fun toEntity(dto: FavouriteDTO): Favourite
 
-    fun nameToEntity(dto: FavouriteNameDTO): Favourite
+    fun nameToEntity(dto: FavouriteSaveDTO): Favourite
 
 }

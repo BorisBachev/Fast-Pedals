@@ -1,15 +1,9 @@
 package com.example.diplomnabackend.controller
 
 import com.example.diplomnabackend.dto.FavouriteDTO
-import com.example.diplomnabackend.dto.FavouriteNameDTO
 import com.example.diplomnabackend.service.FavouriteService
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api/favourite")
@@ -32,26 +26,26 @@ class FavouriteController (
         return ResponseEntity.ok(favouriteService.save(favouriteDTO))
     }
 
-    @PostMapping("/name")
-    fun saveFavouriteByName(@RequestBody favouriteDTO: FavouriteNameDTO) : ResponseEntity<Any> {
-        return ResponseEntity.ok(favouriteService.saveByName(favouriteDTO))
-    }
-
-    @PostMapping("/check")
-    fun checkFavourite(@RequestBody favouriteDTO: FavouriteNameDTO) : ResponseEntity<Any> {
-        return ResponseEntity.ok(favouriteService.check(favouriteDTO))
-    }
-
     @PostMapping("/{id}")
+    fun saveFavouriteByName(@PathVariable id: Long) : ResponseEntity<Any> {
+        return ResponseEntity.ok(favouriteService.saveByName(id))
+    }
+
+    @PostMapping("/check/{id}")
+    fun checkFavourite(@PathVariable id: Long) : ResponseEntity<Any> {
+        return ResponseEntity.ok(favouriteService.check(id))
+    }
+
+    @DeleteMapping("/{id}")
     fun deleteFavourite(@PathVariable id: Long) : ResponseEntity<Any> {
         favouriteService.deleteById(id)
         return ResponseEntity.ok("Favourite with id: $id deleted successfully")
     }
 
-    @PostMapping("/delete")
-    fun deleteFavouriteByUserIdAndListingId(@RequestBody favouriteDTO: FavouriteNameDTO) : ResponseEntity<Any> {
-        favouriteService.deleteByName(favouriteDTO.userEmail, favouriteDTO.listingId)
-        return ResponseEntity.ok("Favourite for user: ${favouriteDTO.userEmail} with listingId: ${favouriteDTO.listingId} deleted successfully")
+    @DeleteMapping("/delete/{id}")
+    fun deleteFavouriteByUserIdAndListingId(@PathVariable id: Long) : ResponseEntity<Any> {
+        favouriteService.deleteByName(id)
+        return ResponseEntity.ok("Favourite with listingId: $id deleted successfully")
     }
 
 
