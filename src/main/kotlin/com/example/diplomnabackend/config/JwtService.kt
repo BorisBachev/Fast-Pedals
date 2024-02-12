@@ -29,7 +29,7 @@ class JwtService (
             .setClaims(extraClaims)
             .setSubject(userDetails.username)
             .setIssuedAt(Date(System.currentTimeMillis()))
-            .setExpiration(Date(System.currentTimeMillis() + 1000 * 60 * 48))
+            .setExpiration(Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24))
             .signWith(getSignInKey(), io.jsonwebtoken.SignatureAlgorithm.HS256)
             .compact()
     }
