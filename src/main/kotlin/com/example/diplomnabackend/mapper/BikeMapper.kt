@@ -1,6 +1,7 @@
 package com.example.diplomnabackend.mapper
 
 import com.example.diplomnabackend.dto.BikeDTO
+import com.example.diplomnabackend.dto.ListingNameDTO
 import com.example.diplomnabackend.entity.Bike
 import org.mapstruct.Mapper
 import org.mapstruct.factory.Mappers
@@ -15,5 +16,7 @@ interface BikeMapper {
     fun toDto(entity: Bike): BikeDTO
 
     fun toEntity(dto: BikeDTO): Bike
+
+    fun nameToDto(dto: ListingNameDTO): BikeDTO
 
 }

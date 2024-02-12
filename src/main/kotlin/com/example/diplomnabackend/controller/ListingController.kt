@@ -1,6 +1,7 @@
 package com.example.diplomnabackend.controller
 
 import com.example.diplomnabackend.dto.ListingDTO
+import com.example.diplomnabackend.dto.ListingNameDTO
 import com.example.diplomnabackend.service.ListingService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -27,12 +28,17 @@ class ListingController (
         return ResponseEntity.ok(listingService.save(listingDTO))
     }
 
+    @PostMapping("/user")
+    fun saveListingByUser(@RequestBody listingDTO: ListingNameDTO) : ResponseEntity<Any> {
+        return ResponseEntity.ok(listingService.saveByUser(listingDTO))
+    }
+
     @PutMapping("/{id}")
     fun updateListing(@PathVariable id: Long, @RequestBody updatedListingDTO: ListingDTO) : ResponseEntity<Any> {
         return ResponseEntity.ok(listingService.update(id, updatedListingDTO))
     }
 
-    @PostMapping("/{id}")
+    @DeleteMapping("/{id}")
     fun deleteListing(@PathVariable id: Long) : ResponseEntity<Any> {
         listingService.deleteById(id)
         return ResponseEntity.ok("Listing with id: $id deleted successfully")

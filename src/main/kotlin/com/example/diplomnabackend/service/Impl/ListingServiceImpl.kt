@@ -1,6 +1,9 @@
 package com.example.diplomnabackend.service.Impl
 
 import com.example.diplomnabackend.dto.ListingDTO
+import com.example.diplomnabackend.dto.ListingNameDTO
+import com.example.diplomnabackend.entity.Bike
+import com.example.diplomnabackend.mapper.BikeMapper
 import com.example.diplomnabackend.mapper.ListingMapper.Companion.LISTINGMAPPER
 import com.example.diplomnabackend.repository.BikeRepository
 import com.example.diplomnabackend.repository.ListingRepository
@@ -30,11 +33,26 @@ class ListingServiceImpl (
 
     override fun save(listingDTO: ListingDTO): ListingDTO {
 
-
         val listingEntity = LISTINGMAPPER.toEntity(listingDTO)
         bikeRepository.findById(listingDTO.bikeId).ifPresent { listingEntity.setBike(it) }
         listingEntity.setUser(userRepository.findByEmail(SecurityContextHolder.getContext().authentication.name))
         val savedListing = listingRepository.save(listingEntity)
+        return LISTINGMAPPER.toDto(savedListing)
+
+    }
+
+    override fun saveByUser(listingDTO: ListingNameDTO): ListingDTO {
+
+        val listingEntity = LISTINGMAPPER.nameToEntity(listingDTO)
+        val bikeDTO = BikeMapper.BIKEMAPPER.nameToDto(listingDTO)
+        val bikeEntity: Bike = BikeMapper.BIKEMAPPER.toEntity(bikeDTO)
+        val savedBike: Bike = bikeRepository.save(bikeEntity)
+
+        listingEntity.setBike(savedBike)
+        listingEntity.setUser(userRepository.findByEmail(SecurityContextHolder.getContext().authentication.name))
+
+        val savedListing = listingRepository.save(listingEntity)
+
         return LISTINGMAPPER.toDto(savedListing)
 
     }

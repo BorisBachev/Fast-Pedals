@@ -26,6 +26,11 @@ class UserController (
         return ResponseEntity.ok(userService.findById(id))
     }
 
+    @GetMapping("/email/{email}")
+    fun getUserByEmail(@PathVariable email: String) : ResponseEntity<Any> {
+        return ResponseEntity.ok(userService.findByEmail(email))
+    }
+
     @PostMapping
     fun saveUser(@RequestBody userDTO: UserDTO) : ResponseEntity<Any> {
         return ResponseEntity.ok(userService.save(userDTO))

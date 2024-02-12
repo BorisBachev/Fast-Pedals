@@ -34,6 +34,13 @@ class UserServiceImpl (
 
     }
 
+    override fun findByEmail(email: String): UserDTO {
+
+        val user = userRepository.findByEmail(email)?: throw NoSuchElementException("User not found")
+        return USERMAPPER.toDto(user)
+
+    }
+
     override fun save(userDTO: UserDTO): UserDTO {
 
         val userEntity = USERMAPPER.toEntity(userDTO)
