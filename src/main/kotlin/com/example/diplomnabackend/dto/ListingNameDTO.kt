@@ -17,6 +17,7 @@ data class ListingNameDTO(
     val model: String,
     val size: String,
     val wheelSize: Int,
-    val frameMaterial: String
+    val frameMaterial: String,
+    val bikeId: Long?
 
 )

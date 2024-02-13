@@ -21,6 +21,11 @@ class FavouriteController (
         return ResponseEntity.ok(favouriteService.findById(id))
     }
 
+    @GetMapping("/user")
+    fun getFavouritesByUser() : ResponseEntity<Any> {
+        return ResponseEntity.ok(favouriteService.findByUser())
+    }
+
     @PostMapping
     fun saveFavourite(@RequestBody favouriteDTO: FavouriteDTO) : ResponseEntity<Any> {
         return ResponseEntity.ok(favouriteService.save(favouriteDTO))

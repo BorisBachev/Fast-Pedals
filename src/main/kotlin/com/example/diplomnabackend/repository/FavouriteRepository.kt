@@ -13,4 +13,6 @@ interface FavouriteRepository : JpaRepository<Favourite, Long> {
     @Transactional
     fun deleteByUserIdAndListingId(userId: Long, listingId: Long): Int
 
+    fun findAllByUserId(userId: Long): List<Favourite>
+
 }

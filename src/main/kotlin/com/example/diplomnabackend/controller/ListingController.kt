@@ -23,6 +23,11 @@ class ListingController (
         return ResponseEntity.ok(listingService.findById(id))
     }
 
+    @GetMapping("/favourites/user")
+    fun getFavouriteListings() : ResponseEntity<Any> {
+        return ResponseEntity.ok(listingService.getFavouriteListings())
+    }
+
     @PostMapping
     fun saveListing(@RequestBody listingDTO: ListingDTO) : ResponseEntity<Any> {
         return ResponseEntity.ok(listingService.save(listingDTO))
@@ -36,6 +41,11 @@ class ListingController (
     @PutMapping("/{id}")
     fun updateListing(@PathVariable id: Long, @RequestBody updatedListingDTO: ListingDTO) : ResponseEntity<Any> {
         return ResponseEntity.ok(listingService.update(id, updatedListingDTO))
+    }
+
+    @PutMapping("/edit")
+    fun updateListingByUser(@RequestBody updatedListingDTO: ListingNameDTO) : ResponseEntity<Any> {
+        return ResponseEntity.ok(listingService.updateByUser(updatedListingDTO))
     }
 
     @DeleteMapping("/{id}")
@@ -56,10 +66,11 @@ class ListingController (
         @RequestParam(required = false) model: String?,
         @RequestParam(required = false) size: String?,
         @RequestParam(required = false) wheelSize: Int?,
-        @RequestParam(required = false) frameMaterial: String?
+        @RequestParam(required = false) frameMaterial: String?,
+        @RequestParam(required = false) userId: Long?
     ): ResponseEntity<List<ListingDTO?>?> {
         val result = listingService.searchListings(
-            title, minPrice, maxPrice, location, description, type, brand, model, size, wheelSize, frameMaterial
+            title, minPrice, maxPrice, location, description, type, brand, model, size, wheelSize, frameMaterial, userId
         )
         return ResponseEntity.ok(result)
     }

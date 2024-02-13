@@ -2,6 +2,7 @@ package com.example.diplomnabackend.service.Impl
 
 import com.example.diplomnabackend.dto.FavouriteDTO
 import com.example.diplomnabackend.dto.FavouriteSaveDTO
+import com.example.diplomnabackend.dto.ListingListDTO
 import com.example.diplomnabackend.repository.FavouriteRepository
 import com.example.diplomnabackend.mapper.FavouriteMapper.Companion.FAVOURITEMAPPER
 import com.example.diplomnabackend.repository.ListingRepository
@@ -25,6 +26,15 @@ class FavouriteServiceImpl (
 
         val favourite = favouriteRepository.findById(id).orElseThrow { NoSuchElementException("Favourite not found") }
         return FAVOURITEMAPPER.toDto(favourite)
+
+    }
+
+    override fun findByUser(): List<ListingListDTO> {
+
+        val user = userRepository.findByEmail(SecurityContextHolder.getContext().authentication.name)
+        val favourites = favouriteRepository.findAllByUserId(user?.getId()!!).map { FAVOURITEMAPPER.toDto(it) }
+
+        return favourites.map { ListingListDTO(listingIds = listOf(it.listingId)) }
 
     }
 
