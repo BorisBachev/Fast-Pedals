@@ -33,7 +33,7 @@ class ListingServiceImpl (
         return LISTINGMAPPER.toDto(listing)
     }
 
-    override fun getFavouriteListings(): List<ListingDTO>? {
+    override fun getFavouriteListings(): List<ListingDTO> {
 
         val user = userRepository.findByEmail(SecurityContextHolder.getContext().authentication.name)
         val favourites = favouriteRepository.findAllByUserId(user?.getId()!!).map { it.getListing()?.getId() }
@@ -48,7 +48,7 @@ class ListingServiceImpl (
             }
         }
 
-        return if (listings.isNotEmpty()) listings else null
+        return listings
 
     }
 

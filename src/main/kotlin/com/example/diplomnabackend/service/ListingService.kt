@@ -9,7 +9,7 @@ interface ListingService {
     fun findAll(): List<ListingDTO>
     fun findById(id: Long): ListingDTO
 
-    fun getFavouriteListings(): List<ListingDTO>?
+    fun getFavouriteListings(): List<ListingDTO>
 
     fun save(listingDTO: ListingDTO): ListingDTO
 
