@@ -11,11 +11,6 @@ class UserController (
     private val userService: UserService
 ) {
 
-    @GetMapping("/contacts/{id}")
-    fun getUserContacts(@PathVariable id: Long) : ResponseEntity<Any> {
-        return ResponseEntity.ok(userService.getUserContacts(id))
-    }
-
     @GetMapping
     fun getAllUsers() : ResponseEntity<Any> {
         return ResponseEntity.ok(userService.findAll())
@@ -26,9 +21,9 @@ class UserController (
         return ResponseEntity.ok(userService.findById(id))
     }
 
-    @GetMapping("/email/{email}")
-    fun getUserByEmail(@PathVariable email: String) : ResponseEntity<Any> {
-        return ResponseEntity.ok(userService.findByEmail(email))
+    @GetMapping("/email")
+    fun getUserByEmail() : ResponseEntity<Any> {
+        return ResponseEntity.ok(userService.findByEmail())
     }
 
     @PostMapping

@@ -1,10 +1,10 @@
 package com.example.diplomnabackend.service.Impl
 
-import com.example.diplomnabackend.dto.ContactsDTO
 import com.example.diplomnabackend.dto.UserDTO
 import com.example.diplomnabackend.repository.UserRepository
 import com.example.diplomnabackend.mapper.UserMapper.Companion.USERMAPPER
 import com.example.diplomnabackend.service.UserService
+import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Service
 
 @Service
@@ -13,13 +13,6 @@ class UserServiceImpl (
 ) : UserService {
 
     val err = NoSuchElementException("User not found")
-
-    override fun getUserContacts(id: Long): ContactsDTO {
-
-        val user = userRepository.findById(id).orElseThrow { err }
-        return USERMAPPER.toContactsDto(user)
-
-    }
 
     override fun findAll(): List<UserDTO> {
 
@@ -34,10 +27,10 @@ class UserServiceImpl (
 
     }
 
-    override fun findByEmail(email: String): UserDTO {
+    override fun findByEmail(): UserDTO {
 
-        val user = userRepository.findByEmail(email)?: throw NoSuchElementException("User not found")
-        return USERMAPPER.toDto(user)
+        val user = userRepository.findByEmail(SecurityContextHolder.getContext().authentication.name)
+        return USERMAPPER.toDto(user!!)
 
     }
 
