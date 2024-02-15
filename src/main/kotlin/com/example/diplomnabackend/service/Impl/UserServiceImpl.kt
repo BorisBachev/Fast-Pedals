@@ -53,7 +53,19 @@ class UserServiceImpl (
             setFullName(updatedUserDTO.fullName)
             setPhoneNumber(updatedUserDTO.phoneNumber)
             setProfilePicture(updatedUserDTO.profilePicture)
+            updatedUserDTO.fcm?.let { setFcm(it) }
         }
+
+        val updatedUser = userRepository.save(existingUser)
+        return USERMAPPER.toDto(updatedUser)
+
+    }
+
+    override fun updateFcm(fcm: String): UserDTO {
+
+        val existingUser = userRepository.findByEmail(SecurityContextHolder.getContext().authentication.name) ?: throw err
+
+        existingUser.setFcm(fcm)
 
         val updatedUser = userRepository.save(existingUser)
         return USERMAPPER.toDto(updatedUser)

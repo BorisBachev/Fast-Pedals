@@ -11,6 +11,9 @@ interface UserService {
 
     fun save(userDTO: UserDTO): UserDTO
     fun update(id: Long, updatedUserDTO: UserDTO): UserDTO
+
+    fun updateFcm(fcm: String): UserDTO
+
     fun deleteById(id: Long)
 
 }

@@ -36,6 +36,11 @@ class UserController (
         return ResponseEntity.ok(userService.update(id, updatedUserDTO))
     }
 
+    @PutMapping("/fcm")
+    fun updateFcw(@RequestBody fcm: String) : ResponseEntity<Any> {
+        return ResponseEntity.ok(userService.updateFcm(fcm))
+    }
+
     @DeleteMapping("/{id}")
     fun deleteUser(@PathVariable id: Long) : ResponseEntity<Any> {
         userService.deleteById(id)

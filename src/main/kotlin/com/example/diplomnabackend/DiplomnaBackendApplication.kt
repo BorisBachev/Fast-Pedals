@@ -7,5 +7,6 @@ import org.springframework.boot.runApplication
 class DiplomnaBackendApplication
 
 fun main(args: Array<String>) {
+
     runApplication<DiplomnaBackendApplication>(*args)
 }

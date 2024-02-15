@@ -5,6 +5,8 @@ import com.example.diplomnabackend.entity.User
 import com.example.diplomnabackend.repository.UserRepository
 import com.example.diplomnabackend.entity.enums.Role
 import org.springframework.security.authentication.AuthenticationManager
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
+import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 
@@ -33,16 +35,27 @@ class AuthenticationService (
     fun authenticate(request: AuthenticationRequest): AuthenticationResponse {
 
         authenticationManager.authenticate(
-            org.springframework.security.authentication.UsernamePasswordAuthenticationToken(
+            UsernamePasswordAuthenticationToken(
                 request.email,
                 request.password
             )
         )
+
         val user = userRepository.findByEmail(request.email)
 
         val token = jwtService.generateToken(user!!)
 
         return AuthenticationResponse.build(token)
+
+    }
+
+    fun check(): CheckResponse {
+
+        val user = userRepository.findByEmail(SecurityContextHolder.getContext().authentication.name)
+
+        val token = jwtService.generateToken(user!!)
+
+        return CheckResponse(token)
 
     }
 
