@@ -1,6 +1,7 @@
 package com.example.diplomnabackend.controller
 
 import com.example.diplomnabackend.dto.ListingDTO
+import com.example.diplomnabackend.dto.ListingNameDTO
 import com.example.diplomnabackend.service.ListingService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -22,9 +23,19 @@ class ListingController (
         return ResponseEntity.ok(listingService.findById(id))
     }
 
+    @GetMapping("/favourites/user")
+    fun getFavouriteListings() : ResponseEntity<Any> {
+        return ResponseEntity.ok(listingService.getFavouriteListings())
+    }
+
     @PostMapping
     fun saveListing(@RequestBody listingDTO: ListingDTO) : ResponseEntity<Any> {
         return ResponseEntity.ok(listingService.save(listingDTO))
+    }
+
+    @PostMapping("/user")
+    fun saveListingByUser(@RequestBody listingDTO: ListingNameDTO) : ResponseEntity<Any> {
+        return ResponseEntity.ok(listingService.saveByUser(listingDTO))
     }
 
     @PutMapping("/{id}")
@@ -32,7 +43,12 @@ class ListingController (
         return ResponseEntity.ok(listingService.update(id, updatedListingDTO))
     }
 
-    @PostMapping("/{id}")
+    @PutMapping("/edit")
+    fun updateListingByUser(@RequestBody updatedListingDTO: ListingNameDTO) : ResponseEntity<Any> {
+        return ResponseEntity.ok(listingService.updateByUser(updatedListingDTO))
+    }
+
+    @DeleteMapping("/{id}")
     fun deleteListing(@PathVariable id: Long) : ResponseEntity<Any> {
         listingService.deleteById(id)
         return ResponseEntity.ok("Listing with id: $id deleted successfully")
@@ -50,10 +66,11 @@ class ListingController (
         @RequestParam(required = false) model: String?,
         @RequestParam(required = false) size: String?,
         @RequestParam(required = false) wheelSize: Int?,
-        @RequestParam(required = false) frameMaterial: String?
+        @RequestParam(required = false) frameMaterial: String?,
+        @RequestParam(required = false) userId: Long?
     ): ResponseEntity<List<ListingDTO?>?> {
         val result = listingService.searchListings(
-            title, minPrice, maxPrice, location, description, type, brand, model, size, wheelSize, frameMaterial
+            title, minPrice, maxPrice, location, description, type, brand, model, size, wheelSize, frameMaterial, userId
         )
         return ResponseEntity.ok(result)
     }

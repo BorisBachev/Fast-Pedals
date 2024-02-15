@@ -23,7 +23,8 @@ interface ListingRepository : JpaRepository<Listing, Long> {
         "AND (:model IS NULL OR LOWER(b.model) LIKE %:model%) " +
         "AND (:size IS NULL OR LOWER(b.size) LIKE %:size%) " +
         "AND (:wheelSize IS NULL OR b.wheelSize = :wheelSize) " +
-        "AND (:frameMaterial IS NULL OR LOWER(b.frameMaterial) LIKE %:frameMaterial%)"
+        "AND (:frameMaterial IS NULL OR LOWER(b.frameMaterial) LIKE %:frameMaterial%)" +
+        "AND (:userId IS NULL OR l.user.id = :userId)"
     )
     fun searchListings(
         @Param("title") title: String?,
@@ -36,6 +37,7 @@ interface ListingRepository : JpaRepository<Listing, Long> {
         @Param("model") model: String?,
         @Param("size") size: String?,
         @Param("wheelSize") wheelSize: Int?,
-        @Param("frameMaterial") frameMaterial: String?
+        @Param("frameMaterial") frameMaterial: String?,
+        @Param("userId") userId: Long?
     ): List<Listing?>?
 }
