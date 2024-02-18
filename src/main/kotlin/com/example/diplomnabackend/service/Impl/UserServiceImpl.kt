@@ -86,7 +86,7 @@ class UserServiceImpl (
 
     override fun deleteById(id: Long) {
 
-            userRepository.deleteById(id)
+        userRepository.deleteById(id)
 
     }
 
