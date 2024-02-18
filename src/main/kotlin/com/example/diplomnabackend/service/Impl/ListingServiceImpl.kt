@@ -10,8 +10,12 @@ import com.example.diplomnabackend.repository.FavouriteRepository
 import com.example.diplomnabackend.repository.ListingRepository
 import com.example.diplomnabackend.repository.UserRepository
 import com.example.diplomnabackend.service.ListingService
+import com.google.auth.oauth2.GoogleCredentials
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Service
+import java.io.FileInputStream
+import java.net.HttpURLConnection
+import java.net.URL
 
 
 @Service
@@ -20,6 +24,7 @@ class ListingServiceImpl (
     private val bikeRepository: BikeRepository,
     private val userRepository: UserRepository,
     private val favouriteRepository: FavouriteRepository
+
 ) : ListingService {
 
     val err = NoSuchElementException("Listing not found")
@@ -42,7 +47,7 @@ class ListingServiceImpl (
 
         favourites.forEach { favoriteId ->
             favoriteId?.let { id ->
-                listingRepository.findById(id)?.ifPresent { listing ->
+                listingRepository.findById(id).ifPresent { listing ->
                     listings.add(LISTINGMAPPER.toDto(listing))
                 }
             }
@@ -95,6 +100,58 @@ class ListingServiceImpl (
 
     }
 
+
+    val BASE_URL = "https://fcm.googleapis.com"
+    val FCM_SEND_ENDPOINT = "/v1/projects/fast-pedals/messages:send"
+    val FCM_SERVER_KEY_LOCATION = "/C:/Users/yb/IdeaProjects/DiplomnaBackend/fast-pedals-firebase-adminsdk-dueve-105a73ebda.json"
+    val FCM_AUTH_ENDPOINT = "https://www.googleapis.com/auth/firebase.messaging"
+
+    private fun getAccessToken(): String {
+
+        val credentials = GoogleCredentials.fromStream(FileInputStream(FCM_SERVER_KEY_LOCATION))
+            .createScoped(listOf(FCM_AUTH_ENDPOINT))
+        credentials.refresh()
+
+        return credentials.accessToken.tokenValue
+    }
+
+    private fun sendNotification(token: String, title: String, message: String, accessToken: String): String {
+
+        val requestBody = """
+        {
+           "message":{
+              "token":$token,
+              "notification":{
+                "body":"$message",
+                "title":"$title"
+              }
+           }
+        }
+    """.trimIndent()
+
+        val url = URL("$BASE_URL$FCM_SEND_ENDPOINT")
+        val connection = url.openConnection() as HttpURLConnection
+        connection.requestMethod = "POST"
+        connection.setRequestProperty("Authorization", "Bearer $accessToken")
+        connection.setRequestProperty("Content-Type", "application/json; UTF-8")
+        connection.doOutput = true
+
+        val outputStream = connection.outputStream
+        outputStream.write(requestBody.toByteArray())
+        outputStream.flush()
+
+        val responseCode = connection.responseCode
+        val response = if (responseCode == HttpURLConnection.HTTP_OK) {
+            connection.inputStream.bufferedReader().use { it.readText() }
+        } else {
+            "Notification error: HTTP $responseCode"
+        }
+
+        connection.disconnect()
+
+        return response
+    }
+
     override fun updateByUser(updatedListingDTO: ListingNameDTO): ListingDTO {
 
         val existingListing = listingRepository.findById(updatedListingDTO.id).orElseThrow { err }
@@ -122,13 +179,35 @@ class ListingServiceImpl (
         }
 
         val updatedListing = listingRepository.save(existingListing)
-        return LISTINGMAPPER.toDto(updatedListing)
 
+        val favourites = favouriteRepository.findAllByListingId(updatedListing.getId())
+
+        if(favourites.isEmpty()) return LISTINGMAPPER.toDto(updatedListing)
+
+        val accessToken = getAccessToken()
+        
+        favourites.forEach { favourite ->
+            val user = favourite.getUser()
+            val fcmToken = user?.getFcm()
+            if (fcmToken != null) {
+                val notificationTitle = "Listing ${updatedListingDTO.title} Updated"
+                val notificationMessage = "Current price: ${updatedListingDTO.price}"
+                sendNotification(fcmToken, notificationTitle, notificationMessage, accessToken)
+            }
+        }
+
+        return LISTINGMAPPER.toDto(updatedListing)
     }
 
     override fun deleteById(id: Long) {
 
+        val listing = listingRepository.findById(id).orElseThrow { err }
+
+        favouriteRepository.deleteAllByListingId(id)
+        bikeRepository.deleteById(listing.getBike()?.getId()!!)
+
         listingRepository.deleteById(id)
+
 
     }
 

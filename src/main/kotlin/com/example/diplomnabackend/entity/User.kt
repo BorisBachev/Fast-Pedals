@@ -33,6 +33,8 @@ class User (
     @Enumerated(EnumType.STRING)
     private var role: Role,
 
+    private var fcm: String?,
+
     @OneToMany
     private var listings: List<Listing>? = mutableListOf(),
 
@@ -67,6 +69,13 @@ class User (
     fun setRole(role: Role) {
         this.role = role
     }
+
+    fun getFcm(): String? = fcm
+
+    fun setFcm(fcm: String) {
+        this.fcm = fcm
+    }
+
     fun getProfilePicture(): String? = profilePicture
     fun setProfilePicture(profilePicture: String?) {
         this.profilePicture = profilePicture
@@ -121,7 +130,8 @@ class User (
                 fullName = "",
                 phoneNumber = "",
                 profilePicture = "",
-                role = Role.USER
+                role = Role.USER,
+                fcm = ""
             )
         }
     }

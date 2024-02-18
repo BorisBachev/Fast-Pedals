@@ -15,4 +15,8 @@ interface FavouriteRepository : JpaRepository<Favourite, Long> {
 
     fun findAllByUserId(userId: Long): List<Favourite>
 
+    fun findAllByListingId(listingId: Long): List<Favourite>
+
+    fun deleteAllByListingId(listingId: Long): Int
+
 }

@@ -46,6 +46,7 @@ CREATE TABLE user
     full_name       VARCHAR(255)          NOT NULL,
     phone_number    VARCHAR(255)          NOT NULL,
     profile_picture VARCHAR(255)          NULL,
+    fcm             VARCHAR(255)          NULL,
     `role`          ENUM('USER', 'ROLE')          NULL,
     CONSTRAINT pk_user PRIMARY KEY (id)
 );

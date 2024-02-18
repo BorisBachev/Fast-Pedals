@@ -8,6 +8,7 @@ class UserDTO (
     var passw: String,
     var fullName: String,
     var phoneNumber: String,
-    var profilePicture: String?
+    var profilePicture: String?,
+    var fcm: String?,
 
 )

@@ -1,6 +1,7 @@
 package com.example.diplomnabackend.auth
 
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -12,8 +13,6 @@ class AuthenticationController (
     private val authenticationService: AuthenticationService
 
 ) {
-
-    //ToDO: Add a check if authenticated to be able to reset token and skip welcome screen if logged in
 
     @PostMapping("/register")
     fun register(@RequestBody request: RegisterRequest) :ResponseEntity<AuthenticationResponse> {
@@ -27,6 +26,11 @@ class AuthenticationController (
 
         return ResponseEntity.ok(authenticationService.authenticate(request))
 
+    }
+
+    @GetMapping("/check")
+    fun check() : ResponseEntity<Any> {
+        return ResponseEntity.ok(authenticationService.check())
     }
 
 }
