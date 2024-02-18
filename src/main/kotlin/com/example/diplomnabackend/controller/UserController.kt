@@ -41,6 +41,11 @@ class UserController (
         return ResponseEntity.ok(userService.updateFcm(fcm))
     }
 
+    @GetMapping("/logout")
+    fun logout() : ResponseEntity<Any> {
+        return ResponseEntity.ok(userService.logout())
+    }
+
     @DeleteMapping("/{id}")
     fun deleteUser(@PathVariable id: Long) : ResponseEntity<Any> {
         userService.deleteById(id)

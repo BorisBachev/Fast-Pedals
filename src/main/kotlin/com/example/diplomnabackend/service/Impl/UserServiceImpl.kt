@@ -72,6 +72,18 @@ class UserServiceImpl (
 
     }
 
+    override fun logout(): UserDTO {
+
+        val existingUser = userRepository.findByEmail(SecurityContextHolder.getContext().authentication.name) ?: throw err
+
+        existingUser.setFcm("")
+
+        val updatedUser = userRepository.save(existingUser)
+
+        return USERMAPPER.toDto(updatedUser)
+
+    }
+
     override fun deleteById(id: Long) {
 
             userRepository.deleteById(id)

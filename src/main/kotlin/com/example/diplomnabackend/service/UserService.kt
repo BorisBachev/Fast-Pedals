@@ -14,6 +14,8 @@ interface UserService {
 
     fun updateFcm(fcm: String): UserDTO
 
+    fun logout(): UserDTO
+
     fun deleteById(id: Long)
 
 }
