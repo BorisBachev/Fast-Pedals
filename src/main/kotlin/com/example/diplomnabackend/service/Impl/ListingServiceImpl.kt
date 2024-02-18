@@ -103,11 +103,13 @@ class ListingServiceImpl (
 
     val BASE_URL = "https://fcm.googleapis.com"
     val FCM_SEND_ENDPOINT = "/v1/projects/fast-pedals/messages:send"
+    val FCM_SERVER_KEY_LOCATION = "/C:/Users/yb/IdeaProjects/DiplomnaBackend/fast-pedals-firebase-adminsdk-dueve-105a73ebda.json"
+    val FCM_AUTH_ENDPOINT = "https://www.googleapis.com/auth/firebase.messaging"
 
     private fun getAccessToken(): String {
 
-        val credentials = GoogleCredentials.fromStream(FileInputStream("/C:/Users/yb/IdeaProjects/DiplomnaBackend/fast-pedals-firebase-adminsdk-dueve-105a73ebda.json"))
-            .createScoped(listOf("https://www.googleapis.com/auth/firebase.messaging"))
+        val credentials = GoogleCredentials.fromStream(FileInputStream(FCM_SERVER_KEY_LOCATION))
+            .createScoped(listOf(FCM_AUTH_ENDPOINT))
         credentials.refresh()
 
         return credentials.accessToken.tokenValue
