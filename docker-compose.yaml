@@ -10,7 +10,8 @@ services:
     environment:
       - spring.datasource.url=jdbc:mysql://mysqldb:3306/fastpedals?allowPublicKeyRetrieval=true
     depends_on:
-      - mysqldb
+      mysqldb:
+        condition: service_healthy
 
     volumes:
       - /tmp
@@ -27,6 +28,11 @@ services:
       MYSQL_ROOT_PASSWORD: adminadmin
       MYSQL_USER: admin
       MYSQL_PASSWORD: adminadmin
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "mysqldb", "-P", "3306", "--silent" ]
+      interval: 10s
+      timeout: 5s
+      retries: 100
 
 networks:
   springapimysql-net:

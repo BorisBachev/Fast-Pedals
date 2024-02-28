@@ -68,14 +68,15 @@ class ListingServiceImpl (
 
         val listing = listingRepository.findById(id).orElseThrow { err }
         val bike = listing.getBike()
-        val user = listing.getUser()
+        val owner = listing.getUser()
+        val user = userRepository.findByEmail(SecurityContextHolder.getContext().authentication.name)
         val isFavourite = favouriteRepository.existsByUserIdAndListingId(id, user?.getId()!!)
 
         val listingDTO = LISTINGMAPPER.toDto(listing)
         val bikeDTO = bike?.let { BikeMapper.BIKEMAPPER.toDto(it) }
-        val userDTO = user?.let { UserMapper.USERMAPPER.toDto(it) }
+        val userDTO = owner?.let { UserMapper.USERMAPPER.toDto(it) }
 
-        val isOwner = user?.getEmail() == SecurityContextHolder.getContext().authentication.name
+        val isOwner = owner?.getId() == user?.getId()
 
         return WholeListingDTO(
             listingDTO.id,
