@@ -1,0 +1,32 @@
+version: "3.7"
+services:
+  api_service:
+    build: .
+    restart: always
+    ports:
+      - "9090:8080"
+    networks:
+      - springapimysql-net
+    environment:
+      - spring.datasource.url=jdbc:mysql://mysqldb:3306/fastpedals?allowPublicKeyRetrieval=true
+    depends_on:
+      - mysqldb
+
+    volumes:
+      - /tmp
+
+  mysqldb:
+    image: "mysql:8.0"
+    restart: always
+    ports:
+      - "3307:3306"
+    networks:
+      - springapimysql-net
+    environment:
+      MYSQL_DATABASE: fastpedals
+      MYSQL_ROOT_PASSWORD: adminadmin
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: adminadmin
+
+networks:
+  springapimysql-net:

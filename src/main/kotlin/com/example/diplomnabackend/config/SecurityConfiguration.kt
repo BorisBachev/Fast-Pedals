@@ -19,6 +19,7 @@ class SecurityConfiguration (
 
     @Bean
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain{
+
         http
             .csrf().disable()
             .authorizeHttpRequests()

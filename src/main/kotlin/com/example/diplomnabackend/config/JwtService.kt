@@ -15,7 +15,7 @@ class JwtService (
     private val key: String = "6E26C7DAD8813374FB1BBBD2f9E3E68EA87C650A956661A303F17BB34675BD66"
 
 ) {
-    fun extractUsername(jwt: String): String {
+    fun extractUsername(jwt: String): String? {
         return extractClaim(jwt, Claims::getSubject)
     }
 
@@ -52,7 +52,7 @@ class JwtService (
     }
 
     fun extractAllClaims(jwt: String): Claims {
-        return Jwts.parserBuilder().setSigningKey(getSignInKey()).build().parseClaimsJws(jwt).getBody()
+        return Jwts.parserBuilder().setSigningKey(getSignInKey()).build().parseClaimsJws(jwt).body
     }
 
     private fun getSignInKey(): Key {

@@ -15,21 +15,23 @@ class AuthenticationController (
 ) {
 
     @PostMapping("/register")
-    fun register(@RequestBody request: RegisterRequest) :ResponseEntity<AuthenticationResponse> {
+    fun register(@RequestBody request: RegisterRequest)
+    : ResponseEntity<AuthenticationResponse> {
 
         return ResponseEntity.ok(authenticationService.register(request))
 
     }
 
     @PostMapping("/authenticate")
-    fun authenticate(@RequestBody request: AuthenticationRequest) :ResponseEntity<AuthenticationResponse> {
+    fun authenticate(@RequestBody request: AuthenticationRequest)
+    : ResponseEntity<AuthenticationResponse> {
 
         return ResponseEntity.ok(authenticationService.authenticate(request))
 
     }
 
     @GetMapping("/check")
-    fun check() : ResponseEntity<Any> {
+    fun check(): ResponseEntity<CheckResponse> {
         return ResponseEntity.ok(authenticationService.check())
     }
 

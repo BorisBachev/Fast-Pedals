@@ -19,27 +19,27 @@ class BikeController (
 ) {
 
     @GetMapping
-    fun getAllBikes() : ResponseEntity<Any>{
+    fun getAllBikes(): ResponseEntity<List<BikeDTO>>{
         return ResponseEntity.ok(bikeService.findAll())
     }
 
     @GetMapping("/{id}")
-    fun getBikeById(@PathVariable id: Long) : ResponseEntity<Any>{
+    fun getBikeById(@PathVariable id: Long): ResponseEntity<BikeDTO?>{
         return ResponseEntity.ok(bikeService.findById(id))
     }
 
     @PostMapping
-    fun saveBike(@RequestBody bikeDTO: BikeDTO) : ResponseEntity<Any>{
+    fun saveBike(@RequestBody bikeDTO: BikeDTO): ResponseEntity<BikeDTO>{
         return ResponseEntity.ok(bikeService.save(bikeDTO))
     }
 
     @PutMapping("/{id}")
-    fun updateBike(@PathVariable id: Long, @RequestBody updatedBikeDTO: BikeDTO) : ResponseEntity<Any>{
+    fun updateBike(@PathVariable id: Long, @RequestBody updatedBikeDTO: BikeDTO): ResponseEntity<BikeDTO>{
         return ResponseEntity.ok(bikeService.update(id, updatedBikeDTO))
     }
 
     @DeleteMapping("/{id}")
-    fun deleteBike(@PathVariable id: Long) : ResponseEntity<Any>{
+    fun deleteBike(@PathVariable id: Long): ResponseEntity<Any>{
         bikeService.deleteById(id)
         return ResponseEntity.ok("Bike with id: $id deleted successfully")
     }

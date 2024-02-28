@@ -34,7 +34,7 @@ class FavouriteServiceImpl (
         val user = userRepository.findByEmail(SecurityContextHolder.getContext().authentication.name)
         val favourites = favouriteRepository.findAllByUserId(user?.getId()!!).map { FAVOURITEMAPPER.toDto(it) }
 
-        return favourites.map { ListingListDTO(listingIds = listOf(it.listingId)) }
+        return favourites.map { ListingListDTO(listingId = it.listingId) }
 
     }
 

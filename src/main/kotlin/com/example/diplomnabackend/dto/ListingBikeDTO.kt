@@ -3,7 +3,7 @@ package com.example.diplomnabackend.dto
 import com.example.diplomnabackend.entity.enums.BikeBrand
 import com.example.diplomnabackend.entity.enums.BikeType
 
-data class ListingNameDTO(
+class ListingBikeDTO(
 
     val id: Long,
     val title: String,
