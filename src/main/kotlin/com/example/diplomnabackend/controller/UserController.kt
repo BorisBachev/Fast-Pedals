@@ -12,37 +12,43 @@ class UserController (
 ) {
 
     @GetMapping
-    fun getAllUsers() : ResponseEntity<Any> {
+    fun getAllUsers(): ResponseEntity<List<UserDTO>> {
         return ResponseEntity.ok(userService.findAll())
     }
 
     @GetMapping("/{id}")
-    fun getUserById(@PathVariable id: Long) : ResponseEntity<Any> {
+    fun getUserById(@PathVariable id: Long): ResponseEntity<UserDTO> {
         return ResponseEntity.ok(userService.findById(id))
     }
 
     @GetMapping("/email")
-    fun getUserByEmail() : ResponseEntity<Any> {
+    fun getUserByEmail(): ResponseEntity<UserDTO> {
         return ResponseEntity.ok(userService.findByEmail())
     }
 
     @PostMapping
-    fun saveUser(@RequestBody userDTO: UserDTO) : ResponseEntity<Any> {
+    fun saveUser(@RequestBody userDTO: UserDTO): ResponseEntity<UserDTO> {
         return ResponseEntity.ok(userService.save(userDTO))
     }
 
     @PutMapping("/{id}")
-    fun updateUser(@PathVariable id: Long, @RequestBody updatedUserDTO: UserDTO) : ResponseEntity<Any> {
+    fun updateUser(@PathVariable id: Long, @RequestBody updatedUserDTO: UserDTO)
+    : ResponseEntity<UserDTO> {
         return ResponseEntity.ok(userService.update(id, updatedUserDTO))
     }
 
     @PutMapping("/fcm")
-    fun updateFcw(@RequestBody fcm: String) : ResponseEntity<Any> {
+    fun updateFcw(@RequestBody fcm: String): ResponseEntity<UserDTO> {
         return ResponseEntity.ok(userService.updateFcm(fcm))
     }
 
+    @GetMapping("/logout")
+    fun logout(): ResponseEntity<UserDTO> {
+        return ResponseEntity.ok(userService.logout())
+    }
+
     @DeleteMapping("/{id}")
-    fun deleteUser(@PathVariable id: Long) : ResponseEntity<Any> {
+    fun deleteUser(@PathVariable id: Long): ResponseEntity<Any> {
         userService.deleteById(id)
         return ResponseEntity.ok("User with id: $id deleted successfully")
     }

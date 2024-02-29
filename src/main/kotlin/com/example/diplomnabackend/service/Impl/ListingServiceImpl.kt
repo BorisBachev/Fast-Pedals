@@ -1,10 +1,12 @@
 package com.example.diplomnabackend.service.Impl
 
 import com.example.diplomnabackend.dto.ListingDTO
-import com.example.diplomnabackend.dto.ListingNameDTO
+import com.example.diplomnabackend.dto.ListingBikeDTO
+import com.example.diplomnabackend.dto.WholeListingDTO
 import com.example.diplomnabackend.entity.Bike
 import com.example.diplomnabackend.mapper.BikeMapper
 import com.example.diplomnabackend.mapper.ListingMapper.Companion.LISTINGMAPPER
+import com.example.diplomnabackend.mapper.UserMapper
 import com.example.diplomnabackend.repository.BikeRepository
 import com.example.diplomnabackend.repository.FavouriteRepository
 import com.example.diplomnabackend.repository.ListingRepository
@@ -28,6 +30,11 @@ class ListingServiceImpl (
 ) : ListingService {
 
     val err = NoSuchElementException("Listing not found")
+
+    val BASE_URL = "https://fcm.googleapis.com"
+    val FCM_SEND_ENDPOINT = "/v1/projects/fast-pedals/messages:send"
+    val FCM_SERVER_KEY_LOCATION = "fast-pedals-firebase-adminsdk.json"
+    val FCM_AUTH_ENDPOINT = "https://www.googleapis.com/auth/firebase.messaging"
 
     override fun findAll(): List<ListingDTO> {
         return listingRepository.findAll().map { LISTINGMAPPER.toDto(it) }
@@ -57,6 +64,44 @@ class ListingServiceImpl (
 
     }
 
+    override fun getWholeListing(id: Long): WholeListingDTO {
+
+        val listing = listingRepository.findById(id).orElseThrow { err }
+        val bike = listing.getBike()
+        val owner = listing.getUser()
+        val user = userRepository.findByEmail(SecurityContextHolder.getContext().authentication.name)
+        val isFavourite = favouriteRepository.existsByUserIdAndListingId(user?.getId()!!, id)
+
+        val listingDTO = LISTINGMAPPER.toDto(listing)
+        val bikeDTO = bike?.let { BikeMapper.BIKEMAPPER.toDto(it) }
+        val userDTO = owner?.let { UserMapper.USERMAPPER.toDto(it) }
+
+        val isOwner = owner?.getId() == user.getId()
+
+        return WholeListingDTO(
+            listingDTO.id,
+            listingDTO.title,
+            listingDTO.description,
+            listingDTO.price,
+            listingDTO.location,
+            listingDTO.date,
+            listingDTO.images,
+            bikeDTO?.type!!,
+            bikeDTO.brand,
+            bikeDTO.model,
+            bikeDTO.size,
+            bikeDTO.wheelSize,
+            bikeDTO.frameMaterial,
+            bikeDTO.id,
+            userDTO?.id!!,
+            userDTO.name,
+            userDTO.phoneNumber,
+            isFavourite,
+            isOwner
+            )
+
+    }
+
     override fun save(listingDTO: ListingDTO): ListingDTO {
 
         val listingEntity = LISTINGMAPPER.toEntity(listingDTO)
@@ -67,7 +112,7 @@ class ListingServiceImpl (
 
     }
 
-    override fun saveByUser(listingDTO: ListingNameDTO): ListingDTO {
+    override fun saveByUser(listingDTO: ListingBikeDTO): ListingDTO {
 
         val listingEntity = LISTINGMAPPER.nameToEntity(listingDTO)
         val bikeDTO = BikeMapper.BIKEMAPPER.nameToDto(listingDTO)
@@ -99,12 +144,6 @@ class ListingServiceImpl (
         return LISTINGMAPPER.toDto(updatedListing)
 
     }
-
-
-    val BASE_URL = "https://fcm.googleapis.com"
-    val FCM_SEND_ENDPOINT = "/v1/projects/fast-pedals/messages:send"
-    val FCM_SERVER_KEY_LOCATION = "/C:/Users/yb/IdeaProjects/DiplomnaBackend/fast-pedals-firebase-adminsdk-dueve-105a73ebda.json"
-    val FCM_AUTH_ENDPOINT = "https://www.googleapis.com/auth/firebase.messaging"
 
     private fun getAccessToken(): String {
 
@@ -152,7 +191,7 @@ class ListingServiceImpl (
         return response
     }
 
-    override fun updateByUser(updatedListingDTO: ListingNameDTO): ListingDTO {
+    override fun updateByUser(updatedListingDTO: ListingBikeDTO): ListingDTO {
 
         val existingListing = listingRepository.findById(updatedListingDTO.id).orElseThrow { err }
 
@@ -207,7 +246,6 @@ class ListingServiceImpl (
         bikeRepository.deleteById(listing.getBike()?.getId()!!)
 
         listingRepository.deleteById(id)
-
 
     }
 
