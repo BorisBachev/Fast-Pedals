@@ -105,13 +105,15 @@ class ListingServiceImplTest {
     private fun getListing(): Optional<Listing> {
         val user = getUser()
         val bike = Bike(BIKE_ID, BIKE_TYPE, BIKE_BRAND, BIKE_MODEL, BIKE_SIZE, BIKE_WHEEL_SIZE, BIKE_FRAME_MATERIAL)
-        val listing = Listing(LISTING_ID, user, bike, LISTING_TITLE, LISTING_DESCRIPTION, LISTING_PRICE, LISTING_LOCATION, LISTING_DATE, LISTING_IMAGES)
+        val listing = Listing(LISTING_ID, user, bike, LISTING_TITLE, LISTING_DESCRIPTION, LISTING_PRICE,
+            LISTING_LOCATION, LISTING_DATE, LISTING_IMAGES)
 
         return Optional.of(listing)
     }
 
     private fun getUser(): User {
-        val user = User(USER_ID, USER_NAME, USER_EMAIL, USER_PASSWORD, USER_FULLNAME, USER_PHONE_NUMBER, USER_PROFILE_PICTURE, USER_ROLE, USER_FCM)
+        val user = User(USER_ID, USER_NAME, USER_EMAIL, USER_PASSWORD, USER_FULLNAME, USER_PHONE_NUMBER,
+            USER_PROFILE_PICTURE, USER_ROLE, USER_FCM)
         return user
     }
 }
