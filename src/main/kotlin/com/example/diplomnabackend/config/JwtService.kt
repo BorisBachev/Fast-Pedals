@@ -52,7 +52,12 @@ class JwtService (
     }
 
     fun extractAllClaims(jwt: String): Claims {
-        return Jwts.parserBuilder().setSigningKey(getSignInKey()).build().parseClaimsJws(jwt).body
+        return Jwts
+            .parserBuilder()
+            .setSigningKey(getSignInKey())
+            .build()
+            .parseClaimsJws(jwt)
+            .body
     }
 
     private fun getSignInKey(): Key {
