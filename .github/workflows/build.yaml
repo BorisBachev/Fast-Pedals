@@ -25,3 +25,20 @@ jobs:
 
       - name: Run tests
         run: ./gradlew test
+
+  docker_build_and_push:
+    needs: build_and_test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Docker Login
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build Docker image
+        run: docker build -t byab5/fast_pedals:latest .
+
+      - name: Push Docker image
+        run: docker push byab5/fast_pedals:latest
